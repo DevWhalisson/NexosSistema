@@ -1,0 +1,31 @@
+export interface Cliente {
+  id: number;
+  nome: string;
+  tipo: 'PF' | 'PJ';
+  cpfCnpj: string;
+  email: string;
+  telefone: string;
+  cidade: string;
+  uf: string;
+  status: 'Ativo' | 'Inativo';
+  dataCadastro: string;
+  razaoSocial?: string;
+  nomeFantasia?: string;
+  rg?: string;
+  ie?: string;
+  im?: string;
+  dataNascimento?: string;
+  sexo?: 'M' | 'F' | 'O';
+  celular?: string;
+  emailFinanceiro?: string;
+  cep?: string;
+  logradouro?: string;
+  numero?: string;
+  complemento?: string;
+  bairro?: string;
+  pais?: string;
+  vendedor?: string;
+  limiteCredito?: string;
+  condicaoPagamento?: string;
+  observacoes?: string;
+}
