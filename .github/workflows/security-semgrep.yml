@@ -1,0 +1,29 @@
+name: Nexos Security - Semgrep
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  semgrep:
+    name: Analise estatica de seguranca
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar Semgrep
+        run: python -m pip install semgrep
+
+      - name: Analisar vulnerabilidades
+        run: semgrep scan --config p/security-audit --error frontend
