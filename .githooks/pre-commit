@@ -1,0 +1,26 @@
+#!/bin/sh
+
+echo ""
+echo "NEXOS SECURITY - Verificando credenciais..."
+
+if command -v gitleaks >/dev/null 2>&1; then
+  GITLEAKS="$(command -v gitleaks)"
+elif [ -n "${LOCALAPPDATA:-}" ] && [ -f "$LOCALAPPDATA/Microsoft/WinGet/Packages/Gitleaks.Gitleaks_Microsoft.Winget.Source_8wekyb3d8bbwe/gitleaks.exe" ]; then
+  GITLEAKS="$LOCALAPPDATA/Microsoft/WinGet/Packages/Gitleaks.Gitleaks_Microsoft.Winget.Source_8wekyb3d8bbwe/gitleaks.exe"
+else
+  echo "ERRO: Gitleaks nao encontrado."
+  echo "Commit bloqueado por seguranca."
+  exit 1
+fi
+
+"$GITLEAKS" git --staged --redact --no-banner
+RESULTADO=$?
+
+if [ "$RESULTADO" -ne 0 ]; then
+  echo "NEXOS SECURITY: verificacao falhou."
+  echo "Commit bloqueado."
+  exit 1
+fi
+
+echo "NEXOS SECURITY: verificacao aprovada."
+exit 0
